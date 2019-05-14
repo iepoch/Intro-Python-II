@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -42,13 +42,26 @@ class Main:
     def __init__(self, game, direction, room):
         self.game = game
         self.direction = direction
-        self.room = room
+        self.rooms = rooms
+
+    def __repr__(self):
+        output = ''
+        output += self.game + '\n'
+        i = 1
+        for r in self.rooms:
+            output += str(i) + '.' + r.name + '\n'
+            i += 1
+        output += str(i) + '. Exit'
+        return output
 
 
 # Make a new player object that is currently in the 'outside' room.
+player = Player()
 
 # Write a loop that:
 #
+while selection = len()
+
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
