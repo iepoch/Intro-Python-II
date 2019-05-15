@@ -4,8 +4,8 @@
 
 class Player:
 
-    def __init__(self, cur_room=' outside'):
+    def __init__(self, cur_room='outside'):
         self.cur_room = cur_room
 
     def __repr__(self):
-        return f'Player currently{self.cur_room}'
+        return f'Player currently {self.cur_room}'

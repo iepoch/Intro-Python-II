@@ -73,6 +73,13 @@ while True:
     direction = input(
         "\n Which direction do you want to go?  N S E W Q = Quit").lower().strip()
 # If the user enters a cardinal direction, attempt to move to the room there.
+    if direction == 'n':
+        print("\nYou already North of the wall")
+    elif direction == 's':
+        print("\nYou already gone too far south, and you can't go any futher")
+    elif direction == 'q':
+        print(" Thanks for playing")
+        break
 
 # Print an error message if the movement isn't allowed.
 #
