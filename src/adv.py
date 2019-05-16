@@ -46,18 +46,15 @@ def cls():
 # Make a new player object that is currently in the 'outside' room.
 player = Player(room['outside'])
 # Write a loop that:
-
-
 # While loop for Adventure game
 while True:
 
     # Where is the player currently
     # * Prints the current room name
-
     cur_room = player.cur_room
-# * Prints the current description (the textwrap module might be useful here).
     room_name = cur_room.name
     print('\nCurrent location: ', room_name)
+# * Prints the current description (the textwrap module might be useful here).
 
     room_desc = cur_room.description
     print(textwrap.fill(room_desc))
@@ -70,33 +67,32 @@ while True:
     if direction == 'n':
         cls()
         try:
-            room_name = room_name.n.to
-            print(room_name)
+            cur_room = cur_room.n.to
+            print(cur_room.name)
         except AttributeError:
             print("\nYou already North of the wall")
 
     elif direction == 's':
         cls()
+        print(cur_room.name)
         try:
-            room_name = room_name.s_to
+            cur_room = cur_room.s_to
         except AttributeError:
             print("\nYou already gone too far south, and you can't go any futher")
-        print(room_name, room_desc)
+
     elif direction == 'e':
         cls()
         try:
-            room_name = room_name.e_to
+            cur_room = cur_room.e_to
         except AttributeError:
             print("\nYou are already in the east")
-            print(room_name, room_desc)
 
     elif direction == 'w':
         cls()
         try:
-            room_name = room_name.w_to
+            cur_room = cur_room.w_to
         except AttributeError:
             print("\nWestros is to the south")
-            print(room_name, room_desc)
 
     elif direction == 'q':
         print("\nThanks for playing")
