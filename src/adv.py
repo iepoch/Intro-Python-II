@@ -1,38 +1,43 @@
 from room import Room
 from player import Player
 import textwrap
+from item import Item
 # Declare all the rooms
 
 room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+    'outside':  Room("Outside The Umbrella Manson",
+                     '''*(View of an evil-looking dog-face, complete with growl noises... View 
+switches to Jill and Chris, scouting together... View switches to Joseph,
+scouting alone. He raises his hand and tries to grab his team's attention.)*
+                        '''),
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+    'inside':    Room("Foyer", """As you make it into the foyer you see stairs in front of you a door to the east and a door to the west of you.
+                      And a you hear shots ring out from the west of you. 
+                      """),
 
-    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
-into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+    'main_hall': Room("Main Hall", """You step futher into the main hall and see the winding stair case up to another level of the manson. You start up the stairs when
+                      you hear even more shots ring out from the west of your location."""),
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+    'dinning':   Room("Enter the Dinning Room", """Two deep oak french door open with a slight creak to them as you walk into a very large Dinning Room.
+You notice that their are some pictures on the wall with a very long dinning table. At the end you see a fireplace. To the East you see another door""", [Item("blue ink ribbon", "For use in typewrite to leave message for your partner Chris")]),
 
-    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
+    'stairs': Room("Treasure Chamber", """You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
+
+    'room1': Room("Gallery", """Gallery of all the fine arts with a statue at the very end. When you hear a sound of a dog growling in the back. You begin to step back away from the hound"""),
 }
 
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['narrow']
-room['narrow'].e_to = room['overlook']
-room['overlook'].w_to = room['treasure']
-room['treasure'].n_to = room['overlook']
-room['overlook'].s_to = room['outside']
-room['treasure'].e_to = room['foyer']
-room['foyer'].w_to = room['narrow']
+room['outside'].n_to = room['inside']
+room['inside'].s_to = room['main_hall']
+room['main_hall'].w_to = room['dinning']
+room['dinning'].n_to = room['room1']
+room['room1'].e_to = room['stairs']
+room['stairs'].s_to = room['outside']
+room['room1'].e_to = room['main_hall']
+room['inside'].w_to = room['main_hall']
 
 #
 # Main
@@ -61,6 +66,13 @@ while True:
     direction = input(
         "\n Which direction do you want to go? (n,s,e,w) or q for quit:").lower().strip()
     cls()
+    if Item == player.cur_room:
+        bag = input(
+            "\nYour choice: take / inventory / drop item. What do you want to do? "
+        )
+        if bag == 'take':
+            takeItem = input("\nWhich item do you want? (Example type: gun)")
+            player.inventory.append(takeItem)
 # If the user enters a cardinal direction, attempt to move to the room there.
     if direction == 'n':
 
@@ -68,7 +80,7 @@ while True:
             player.cur_room = cur_room.n_to
             print(cur_room.name, cur_room.description)
         except AttributeError:
-            print("\nYou already North of the wall")
+            print("\nDoor is locked you can not get out of this place!")
 
     elif direction == 's':
 
@@ -82,7 +94,7 @@ while True:
 
         try:
             player.cur_room = cur_room.e_to
-            print(cur_room.description)
+            print(cur_room.name, cur_room.description)
         except AttributeError:
             print("\nYou are already in the east")
 
@@ -90,9 +102,10 @@ while True:
         cls()
         try:
             player.cur_room = cur_room.w_to
-            print(cur_room.description)
+            print(cur_room.name, cur_room.description)
         except AttributeError:
-            print("\nWestros is to the south")
+            print(
+                "\nYou can't go any further and you see a dead body laying in front of you.")
 
     elif direction == 'q':
         print("\nThanks for playing")

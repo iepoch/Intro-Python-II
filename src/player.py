@@ -4,8 +4,9 @@
 
 class Player:
 
-    def __init__(self, cur_room):
+    def __init__(self, cur_room, inventory=[]):
         self.cur_room = cur_room
+        self.inventory = inventory
 
     def __repr__(self):
         return f'Player currently {self.cur_room}'

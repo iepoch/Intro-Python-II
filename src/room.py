@@ -4,6 +4,7 @@
 
 class Room:
 
-    def __init__(self, name, description):
+    def __init__(self, name, description, inventory=[]):
         self.name = name
         self.description = description
+        self.inventory = inventory
