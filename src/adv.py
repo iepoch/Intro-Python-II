@@ -28,19 +28,20 @@ earlier adventurers. The only exit is to the south."""),
 }
 
 items = {
-    'ink_ribbon': Item('room1', 'Ink Ribbon', "This will help you send a message to your partner on your current location")
+    'ink_ribbon': Item('room1', 'Ink Ribbon', "This will help you send a message to your partner on your current location"),
+    'green_herb': Item('dinning', 'Green Herb', "Help heal your wounds")
 
 }
 # Link rooms together
 
 room['outside'].n_to = room['inside']
 room['inside'].s_to = room['main_hall']
-room['main_hall'].w_to = room['dinning']
-room['dinning'].n_to = room['room1']
-room['room1'].e_to = room['stairs']
+room['room1'].w_to = room['dinning']
+room['inside'].e_to = room['room1']
+room['dinning'].n_to = room['main_hall']
 room['stairs'].s_to = room['outside']
-room['room1'].e_to = room['main_hall']
-room['inside'].w_to = room['main_hall']
+room['main_hall'].e_to = room['stairs']
+room['stairs'].w_to = room['room1']
 
 #
 # Main
@@ -59,7 +60,7 @@ player = Player(room['outside'])
 while True:
 
     # * Prints the current room name
-    cur_room = player.cur_room
+  
     print('\nCurrent location: ', player.cur_room.name)
 # * Prints the current description (the textwrap module might be useful here).
 # Print Items
@@ -74,18 +75,12 @@ while True:
     direction = input(
         "\n Which direction do you want to go? (n,s,e,w) or q for quit:").lower().strip()
     cls()
-    if Item == player.cur_room:
-        bag = input(
-            "\nYour choice: take / inventory / drop item. What do you want to do? "
-        )
-        if bag == 'take':
-            takeItem = input("\nWhich item do you want? (Example type: gun)")
-            player.inventory.append(takeItem)
 # If the user enters a cardinal direction, attempt to move to the room there.
     if direction == 'n':
 
         try:
-            player.cur_room = cur_room.n_to
+            player.cur_room = player.cur_room.n_to
+            print(player.cur_room.name)
 
         except AttributeError:
             print("\nDoor is locked you can not get out of this place!")
@@ -93,7 +88,7 @@ while True:
     elif direction == 's':
 
         try:
-            player.cur_room = cur_room.s_to
+            player.cur_room = player.cur_room.s_to
 
         except AttributeError:
             print("\nYou already gone too far south, and you can't go any futher")
@@ -101,16 +96,16 @@ while True:
     elif direction == 'e':
 
         try:
-            player.cur_room = cur_room.e_to
-
+            player.cur_room = player.cur_room.e_to
+            print(player.cur_room.inventory)
         except AttributeError:
             print("\nYou are already in the east")
 
     elif direction == 'w':
         cls()
         try:
-            player.cur_room = cur_room.w_to
-
+            player.cur_room = player.cur_room.w_to
+            print(player.cur_room.inventory)
         except AttributeError:
             print(
                 "\nYou can't go any further and you see a dead body laying in front of you.")

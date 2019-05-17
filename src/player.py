@@ -8,5 +8,5 @@ class Player:
         self.cur_room = cur_room
         self.inventory = inventory
 
-    def __repr__(self):
+    def __str__(self):
         return f'Player currently {self.cur_room}'
