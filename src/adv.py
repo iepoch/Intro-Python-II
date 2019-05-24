@@ -24,14 +24,14 @@ You notice that their are some pictures on the wall with a very long dinning tab
     'stairs': Room("Treasure Chamber", """You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 
-    'room1': Room("Gallery", """Gallery of all the fine arts with a statue at the very end. When you hear a sound of a dog growling in the back. You begin to step back away from the hound"""),
+    'room1': Room("Gallery", """Gallery of all the fine arts with a statue at the very end. When you hear a sound of a dog growling in the back. You begin to step back away from the hound""", [Item("ink-ribbon","This will help you send a message to your partner on your current location")]),
 }
 
-items = {
-    'ink_ribbon': Item('room1', 'Ink Ribbon', "This will help you send a message to your partner on your current location"),
-    'green_herb': Item('dinning', 'Green Herb', "Help heal your wounds")
+# items = {
+#     'ink_ribbon': Item('room1', 'Ink Ribbon', "This will help you send a message to your partner on your current location"),
+#     'green_herb': Item('dinning', 'Green Herb', "Help heal your wounds")
 
-}
+# }
 # Link rooms together
 
 room['outside'].n_to = room['inside']
@@ -63,11 +63,6 @@ while True:
   
     print('\nCurrent location: ', player.cur_room.name)
 # * Prints the current description (the textwrap module might be useful here).
-# Print Items
-    for item in items:
-        if items[item].loc == player.cur_room:
-            print(
-                f'\nThere is a {items[item].name}, a {items[item].description}\n')
     # Where is the player currently
     print(textwrap.fill(player.cur_room.description))
 # * Waits for user input and decides what to do.
@@ -80,8 +75,7 @@ while True:
 
         try:
             player.cur_room = player.cur_room.n_to
-            print(player.cur_room.name)
-
+            print(player.cur_room.description)
         except AttributeError:
             print("\nDoor is locked you can not get out of this place!")
 
@@ -97,7 +91,7 @@ while True:
 
         try:
             player.cur_room = player.cur_room.e_to
-            print(player.cur_room.inventory)
+            print(player.cur_room)
         except AttributeError:
             print("\nYou are already in the east")
 
@@ -105,7 +99,7 @@ while True:
         cls()
         try:
             player.cur_room = player.cur_room.w_to
-            print(player.cur_room.inventory)
+            print(player.cur_room)
         except AttributeError:
             print(
                 "\nYou can't go any further and you see a dead body laying in front of you.")
