@@ -16,5 +16,5 @@ class Room:
         
             # Print Items
         for i in self.inventory:
-            output += '\n' + i.name + "," + i.description
+            output += f'\n{i.name}, {i.description}'
         return output
