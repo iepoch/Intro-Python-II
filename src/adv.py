@@ -5,7 +5,7 @@ from item import Item
 # Declare all the rooms
 
 room = {
-    'outside':  Room("Outside The Umbrella Manson",
+    'outside':  Room("outside of the Umbrella Manson",
                      '''*(View of an evil-looking dog-face, complete with growl noises... View
 switches to Jill and Chris, scouting together... View switches to Joseph,
 scouting alone. He raises his hand and tries to grab his team's attention.)*
@@ -24,7 +24,7 @@ You notice that their are some pictures on the wall with a very long dinning tab
     'stairs': Room("Treasure Chamber", """You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 
-    'room1': Room("Gallery", """Gallery of all the fine arts with a statue at the very end. When you hear a sound of a dog growling in the back. You begin to step back away from the hound""", [Item("ink-ribbon","This will help you send a message to your partner on your current location")]),
+    'room1': Room("Gallery", """Gallery of all the fine arts with a statue at the very end. When you hear a sound of a dog growling in the back. You begin to step back away from the hound""", [Item("ink-ribbon", "This will help you send a message to your partner on your current location")]),
 }
 
 # items = {
@@ -55,27 +55,48 @@ def cls():
 # Make a new player object that is currently in the 'outside' room.
 player = Player(room['outside'])
 
+print('''
+░░░░░░░░░░░░░░░░░░▄▄░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░▄▄███▀█▄░░░░░░░░░░░░░░░
+░░░░░░░░░▄▄▄████████░░░▀▀▄▄▄░░░░░░░░░░
+░░░░░███████████████░░░░░░░▀▀▀▀██░░░░░
+░░░░░█░▀████████████░░░░░░░░░▄███▄░░░░
+░░░░█▀░░░▀██████████░░░░░░░▄██████░░░░
+░░░▄█░░░░░░▀████████░░░░░▄████████▄░░░
+░░▄█░░░░░░░░░▀██████░░░▄███████████░░░
+░▄█░░░░░░░░░░░░▀████░▄██████████████▄░
+▄█░░░░░░░░░░░░░░░█████████████████████
+▀████████████████████▀▀▀▀▀▀▀▀▀▀▀░░░░█▀
+░▀███████████████▀████▄░░░░░░░░░░░░█░░
+░░▀████████████▀░░██████▄░░░░░░░░░█░░░
+░░░▀█████████▀░░░░████████▄░░░░░░█░░░░
+░░░░███████▀░░░░░░░█████████▄▄░░░█░░░░
+░░░░░████▀░░░░░░░░░████████████▄█▀░░░░
+░░░░░███░░░░░░░░░░░██████████████░░░░░
+░░░░░░▀▀▀▀▀▀█▄▄░░░░███████▀▀▀░░░░░░░░░
+░░░░░░░░░░░░░░░▀▀▄▄███▀▀░░░░░░░░░░░░░░''')
+print(f'\n Your just now entered {player.cur_room.name}.')
 # Write a loop that:
 # While loop for Adventure game
 while True:
 
     # * Prints the current room name
-  
-    print('\nCurrent location: ', player.cur_room.name)
-# * Prints the current description (the textwrap module might be useful here).
+
+    # print('\nCurrent location: ', player.cur_room.name)
+    # * Prints the current description (the textwrap module might be useful here).
     # Where is the player currently
-    print(textwrap.fill(player.cur_room.description))
-# * Waits for user input and decides what to do.
+    # print(textwrap.fill(player.cur_room.description))
+    # * Waits for user input and decides what to do.
 
     direction = input(
-        "\n Which direction do you want to go? (n,s,e,w) or q for quit:").lower().strip()
+        f'\n Which direction do you want to go? (n,s,e,w) or q for quit :').lower().strip()
     cls()
 # If the user enters a cardinal direction, attempt to move to the room there.
     if direction == 'n':
 
         try:
             player.cur_room = player.cur_room.n_to
-            print(player.cur_room.description)
+            print(player.cur_room)
         except AttributeError:
             print("\nDoor is locked you can not get out of this place!")
 
@@ -83,6 +104,7 @@ while True:
 
         try:
             player.cur_room = player.cur_room.s_to
+            print(player.cur_room)
 
         except AttributeError:
             print("\nYou already gone too far south, and you can't go any futher")
